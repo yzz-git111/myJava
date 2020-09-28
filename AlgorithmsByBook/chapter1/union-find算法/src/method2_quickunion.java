@@ -1,42 +1,22 @@
-/*
-    API
-     UF（）
-     void union(int p,int q)
-     int find(int p)
-     boolean connected(int p,int q)
-     int getCount()
-*/
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StreamTokenizer;
-
-
-public class method1_quickfind
+public class method2_quickunion
 {
     public static void shuchu()
     {
-        System.out.println("方法一  quick-find算法");
+        System.out.println("方法二  quick-find算法");
     }
 }
 
-abstract class UF   //抽象类UF
-{
-    public abstract int getCount();    //抽象函数 用于返回连通分量的数量
-    public abstract void union(int p,int q);    //用于连接两个连通分量
-    public  abstract int find(int p);       //用于返回某个触点所在的连通分量
-    public abstract boolean connected(int p,int q); //用于判断两个触点是否在一个连通分量内
-    public abstract void draw();
-}
-
-class UF1 extends UF
+class UF2 extends UF
 {
     private int[]id;    //以触点作为索引
     private int count;
 
-    public UF1(int N)   //构造方法 用于初始化触点
+    public UF2(int N)   //构造方法 用于初始化触点
     {
         count = N;
         id = new int[N];
@@ -58,24 +38,22 @@ class UF1 extends UF
 
     public int find(int p)  //返回p的连通分量
     {
-        return id[p];
+        while(p != id[p])
+        {
+            p = id[p];
+        }
+        return p;
     }
 
     public void union(int p,int q)  //将触点p和q连接到统一连通分量
     {
-        int pID = find(p);
-        int qID = find(q);
-        if(pID == qID)  //p,q已经统一连通分量  空操作
+        int pRoot = find(p);
+        int qRoot = find(q);
+        if(pRoot == qRoot)  //p,q已经统一连通分量  空操作
         {
             return;
         }
-        for(int i=0;i<id.length;i++)    //遍历数组  将p所在的连通分量的触点都归并到q所在的连通分量内
-        {
-            if(id[i] == pID)
-            {
-                id[i] = id[q];
-            }
-        }
+        id[pRoot] = qRoot;  //直接连接到根触点下
         count--;    //一次union  count自减1
     }
 
@@ -100,7 +78,7 @@ class UF1 extends UF
 
     public static void main(String args[]) throws IOException
     {
-        method1_quickfind.shuchu();
+        method2_quickunion.shuchu();
         sumfile("D:\\JAVA_CODE\\AlgorithmsByBook\\DataForTest\\tinyUF.txt");
     }
 
@@ -123,7 +101,7 @@ class UF1 extends UF
         stok.nextToken();
         //stok.nextToken();
         N = (int)stok.nval;
-        UF1 uf1 = new UF1(N);
+        UF2 uf2 = new UF2(N);
         while (stok.ttype != StreamTokenizer.TT_EOF)
         {
             if (stok.ttype == StreamTokenizer.TT_NUMBER)
@@ -135,28 +113,8 @@ class UF1 extends UF
                 q = (int)stok.nval;
             }
             System.out.println("p = "+p+" q = "+q);
-            uf1.union(p,q);
-            uf1.draw();
+            uf2.union(p,q);
+            uf2.draw();
         }
     }
 }
-
-//Scanner reader = new Scanner(System.in);
-/*        UF1 uf1 = new UF1(10);
-        uf1.union(4,3);
-        uf1.draw();
-        uf1.union(3,8);
-        uf1.draw();
-        uf1.union(6,5);
-        uf1.draw();
-        uf1.union(9,4);
-        uf1.draw();
-        uf1.union(2,1);
-        uf1.draw();
-        uf1.union(5,0);
-        uf1.draw();
-        uf1.union(7,2);
-        uf1.draw();
-        uf1.union(6,1);
-        uf1.draw();
-        System.out.println(""+uf1.getCount()+"components");*/

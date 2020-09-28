@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AlgorithmsByBook.iml" filepath="$PROJECT_DIR$/AlgorithmsByBook.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter1/BagStackQueue/BagStackQueue.iml" filepath="$PROJECT_DIR$/chapter1/BagStackQueue/BagStackQueue.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter1/chapter1.iml" filepath="$PROJECT_DIR$/chapter1/chapter1.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter1/union-find算法/union-find算法.iml" filepath="$PROJECT_DIR$/chapter1/union-find算法/union-find算法.iml" />
     </modules>
